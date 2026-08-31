@@ -1,0 +1,17 @@
+# Backup files
+*.bak
+*.bak.*
+*~
+*.swp
+*.swo
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Log files
+*.log
+
+# Temporary test directories
+tmp/
+scratch/
