@@ -84,7 +84,7 @@ git clone https://github.com/YOUR_USERNAME/arch-linux-skill.git ~/.agents/skills
 
 ### 3. Using the Skills CLI (`skills.sh`)
 ```bash
-npx skills add YOUR_USERNAME/arch-linux-skill
+npx skills add IPauloGermano/arch-linux-skill
 ```
 
 ---
