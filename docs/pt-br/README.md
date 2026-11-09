@@ -27,7 +27,8 @@ Enquanto o Omarchy utiliza camadas e scripts de conveniência próprios (configu
 * **Monitores e Escala:** Detecção automática de telas, taxas de atualização e escala fracionária otimizada.
 * **Waybar e Widgets Prontos:** Layouts JSONC e temas GTK CSS completos para Waybar, Rofi-wayland, SwayNC, Hypridle e Hyprlock.
 * **Pipeline de Tematização Moderno:** Estilização unificada entre GTK 3/4, Qt5/Qt6 (Kvantum/qt6ct), geradores dinâmicos de paleta (`matugen`, `pywal`) e terminais (Ghostty, Kitty, Alacritty, Foot).
-* **Captura de Tela e OCR:** Screenshots Wayland nativos (`grim`/`slurp`/`grimblast`), gravação acelerada por GPU (`wf-recorder`/`gpu-screen-recorder`) e extração de texto direto da tela com OCR (`tesseract`).
+* **Captura de Tela e Compartilhamento:** Screenshots Wayland nativos (`grim`/`slurp`/`grimblast`), gravação acelerada por GPU (`wf-recorder`/`gpu-screen-recorder`), extração de texto via OCR (`tesseract`) e transferência entre dispositivos via LocalSend e Tailscale.
+* **Diagnóstico de Falhas e Depuração:** Diagnóstico de travamentos com `coredumpctl`, resolução de backtraces em tempo real via servidor oficial Debuginfod do Arch Linux (`debuginfod.archlinux.org`), triagem de OOM e proteção de privacidade de core dumps.
 * **Manutenção do Sistema:** Boas práticas com `pacman`, helpers do AUR (`yay`, `paru`), otimização de espelhos com `reflector`, remoção de órfãos e diagnóstico de áudio PipeWire.
 
 ---
@@ -62,7 +63,8 @@ Enquanto o Omarchy utiliza camadas e scripts de conveniência próprios (configu
         ├── bar-and-widgets.md # Waybar, Rofi, SwayNC, Hyprlock, Hypridle
         ├── theming.md         # Wallpapers, GTK/Qt, Matugen, fontes
         ├── hooks.md           # Listeners IPC de compositores, timers systemd
-        ├── capture.md         # Screenshots, gravação, OCR e portais
+        ├── capture.md         # Screenshots, gravação, OCR e compartilhamento (LocalSend/Tailscale)
+        ├── diagnostics-and-crash.md # Coredumpctl, Debuginfod e análise de OOM
         └── packages-and-system.md # Pacman, AUR, reflector e drivers
 ```
 
@@ -73,18 +75,18 @@ Enquanto o Omarchy utiliza camadas e scripts de conveniência próprios (configu
 ### 1. Para Gemini / Antigravity CLI
 Clone a pasta para o diretório de skills do assistente:
 ```bash
-git clone https://github.com/SEU_USUARIO/arch-linux-skill.git ~/.gemini/config/skills/arch-linux
+git clone https://github.com/IPauloGermano/arch-agent-skill.git ~/.gemini/config/skills/arch-linux
 ```
 
 ### 2. Para Claude Desktop / Code / Open Agent Skills
 ```bash
 mkdir -p ~/.agents/skills
-git clone https://github.com/SEU_USUARIO/arch-linux-skill.git ~/.agents/skills/arch-linux
+git clone https://github.com/IPauloGermano/arch-agent-skill.git ~/.agents/skills/arch-linux
 ```
 
 ### 3. Usando a CLI do Skills (`skills.sh`)
 ```bash
-npx skills add SEU_USUARIO/arch-linux-skill
+npx skills add IPauloGermano/arch-agent-skill
 ```
 
 ---
@@ -99,6 +101,7 @@ Após instalado, seu assistente de IA ativará esta skill automaticamente quando
 * *"Como ativo o modo escuro e aumento a fonte no GNOME via terminal?"*
 * *"Crie um timer do systemd para trocar de wallpaper a cada 30 minutos"*
 * *"Configure extração de texto (OCR) da tela com um atalho"*
+* *"Por que a Waybar travou? Analise o core dump com debuginfod"*
 * *"Limpe o cache do pacman e remova pacotes órfãos com segurança"*
 
 ---

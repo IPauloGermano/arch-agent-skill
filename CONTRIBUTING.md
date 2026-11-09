@@ -1,6 +1,6 @@
 # Contributing to Arch Linux Agent Skill
 
-[English](CONTRIBUTING.md) | [Português](CONTRIBUTING.pt-br.md) | [Español](CONTRIBUTING.es.md)
+[English](CONTRIBUTING.md) | [Português](docs/pt-br/CONTRIBUTING.md) | [Español](docs/es/CONTRIBUTING.md)
 
 Thank you for contributing to the **Arch Linux Multi-Environment Agent Skill**! 🎉
 

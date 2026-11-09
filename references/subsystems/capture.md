@@ -122,3 +122,47 @@ killall -e xdg-desktop-portal
 sleep 2
 /usr/lib/xdg-desktop-portal &
 ```
+
+---
+
+## 5. Media Compression & Transcoding (`ffmpeg`)
+
+Shrink large screen recordings or clips before uploading or sending to chat applications:
+
+```bash
+# Compress recording for chat/Discord sharing (H.264 CRF 28 + AAC audio)
+ffmpeg -i input.mp4 -vcodec libx264 -crf 28 -preset fast -acodec aac -b:a 128k output_compact.mp4
+
+# Downscale high-resolution capture (e.g. 4K/1440p down to 1080p)
+ffmpeg -i input.mp4 -vf "scale=-2:1080" -c:v libx264 -crf 24 output_1080p.mp4
+
+# Convert recording to optimized animated GIF
+ffmpeg -i input.mp4 -vf "fps=15,scale=720:-1:flags=lanczos,split[s0][s1];[s0]palettegen[p];[s1][p]paletteuse" recording.gif
+```
+
+---
+
+## 6. Local & Mesh File Sharing (`LocalSend` & `Tailscale`)
+
+Seamlessly send captured screenshots, screen recordings, or logs across devices:
+
+### Option A: LocalSend (Local Wi-Fi Network Transfer)
+```bash
+# Install GUI or CLI
+sudo pacman -S localsend
+# or AUR CLI:
+yay -S localsend-bin
+
+# Send file via CLI to a nearby machine
+localsend send ~/Pictures/Screenshots/capture.png
+```
+
+### Option B: Tailscale Taildrop (Encrypted Peer-to-Peer Transfer)
+```bash
+# Send screenshot to another machine on your Tailnet
+tailscale file cp ~/Pictures/Screenshots/capture.png <machine_name>:
+
+# Check or receive incoming files on local machine
+tailscale file get .
+```
+

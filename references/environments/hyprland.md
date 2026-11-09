@@ -292,3 +292,63 @@ hyprctl reload
 # Check for syntax errors
 hyprctl configerrors
 ```
+
+---
+
+## 7. Night Light & Blue Light Filtering (`hyprsunset`)
+
+On modern Arch Linux with Hyprland, blue light filtering is handled via `hyprsunset`:
+
+```bash
+# Install hyprsunset
+sudo pacman -S hyprsunset
+
+# Run manually or test color temperature (in Kelvin)
+hyprsunset -t 4000
+```
+
+### Configuration (`~/.config/hypr/hyprsunset.conf`):
+```ini
+# Default daytime temperature (off/neutral)
+temperature = 6500
+
+# Night profile (example custom setting)
+profile {
+    name = night
+    temperature = 4200
+}
+```
+
+Autostart via `autostart.conf`:
+```ini
+exec-once = hyprsunset
+```
+
+---
+
+## 8. Desktop Portal & Screen Sharing (`xdph.conf`)
+
+`xdg-desktop-portal-hyprland` configures screencopy, sharing modes, and picker behavior in `~/.config/hypr/xdph.conf`:
+
+```ini
+screencopy {
+    max_fps = 60
+    allow_token_by_default = true
+    custom_picker_binary = default
+}
+```
+
+---
+
+## 9. Session Management & Systemd Integration (`uwsm`)
+
+Universal Wayland Session Manager (`uwsm`) wraps compositor and desktop application launches inside managed systemd cgroups, preventing runaway background processes and ensuring clean environment variable inheritance.
+
+### Launching Apps via UWSM:
+In keybindings or launchers, prefix GUI apps with `uwsm app --`:
+```ini
+bind = $mainMod, Return, exec, uwsm app -- foot
+bind = $mainMod, E, exec, uwsm app -- nautilus
+bind = $mainMod, B, exec, uwsm app -- firefox
+```
+

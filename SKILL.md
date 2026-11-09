@@ -6,7 +6,8 @@ description: >
   Sway & i3 (~/.config/sway/, ~/.config/i3/), KDE Plasma 6 (kwriteconfig6, kdeglobals, kwinrc),
   GNOME (gsettings, dconf), and Niri (~/.config/niri/). Also covers status bars (Waybar, Polybar),
   app launchers (Rofi, Wofi), theming (GTK, Qt, wallpapers via swww/hyprpaper), audio (PipeWire),
-  screen capture, and package management with pacman/yay/paru.
+  screen capture/sharing (grim, wf-recorder, localsend), package management (pacman/yay/paru),
+  and crash diagnostics (coredumpctl, debuginfod, OOM triage).
 ---
 
 # Arch Linux Multi-Environment Skill
@@ -31,9 +32,9 @@ This skill guides configuration, theming, window management, package maintenance
 - **Status Bars & Launchers:** `~/.config/waybar/`, Polybar, Rofi (`config.rasi`), Wofi, SwayNC, Dunst, Mako
 - **Theming:** GTK 3/4, Qt5/Qt6 (Kvantum, qt6ct), wallpapers (`swww`, `hyprpaper`, `waypaper`), color generators (`matugen`, `pywal`), and fontconfig
 - **Terminals:** Ghostty, Kitty, Alacritty, Foot
-- **Screen Capture & Portals:** `grim`, `slurp`, `grimblast`, `wf-recorder`, `gpu-screen-recorder`, `xdg-desktop-portal`
-- **Package Management:** `pacman`, AUR helpers (`yay`, `paru`), mirrorlist (`reflector`), system updates, and cache cleaning
-- **System Maintenance:** PipeWire/WirePlumber, systemd user services, GPU drivers (NVIDIA, AMD, Intel), and `journalctl` diagnostics
+- **Screen Capture & Portals:** `grim`, `slurp`, `grimblast`, `wf-recorder`, `gpu-screen-recorder`, `xdg-desktop-portal`, `localsend`, `tailscale`
+- **Package Management & System:** `pacman`, AUR helpers (`yay`, `paru`), mirrorlist (`reflector`), system updates, and cache cleaning
+- **Crash Diagnostics:** `coredumpctl`, `gdb` with Arch `debuginfod`, OOM triage, and system journal inspection
 
 ---
 
@@ -42,7 +43,7 @@ This skill guides configuration, theming, window management, package maintenance
 Detailed guides for specific desktop environments and subsystems:
 
 ### Desktop Environments & Window Managers
-- [`references/environments/hyprland.md`](references/environments/hyprland.md) — Hyprland native config, monitors, window rules v2, animations, and `hyprctl`
+- [`references/environments/hyprland.md`](references/environments/hyprland.md) — Hyprland native config, monitors, window rules v2, hyprsunset, and `hyprctl`
 - [`references/environments/sway-i3.md`](references/environments/sway-i3.md) — Sway (Wayland) and i3 (X11) configuration, outputs, workspaces, and `swaymsg`
 - [`references/environments/kde-plasma.md`](references/environments/kde-plasma.md) — KDE Plasma 6 CLI tools (`kwriteconfig6`), KWin rules, themes, and shortcuts
 - [`references/environments/gnome.md`](references/environments/gnome.md) — GNOME configuration via `gsettings`, `dconf`, Mutter, and GNOME extensions
@@ -52,7 +53,8 @@ Detailed guides for specific desktop environments and subsystems:
 - [`references/subsystems/bar-and-widgets.md`](references/subsystems/bar-and-widgets.md) — Waybar layout, CSS styling, custom modules, SwayNC, Hypridle, and Hyprlock
 - [`references/subsystems/theming.md`](references/subsystems/theming.md) — Wallpapers (`swww`, `hyprpaper`), GTK/Qt themes, color palettes, terminal themes, and fonts
 - [`references/subsystems/hooks.md`](references/subsystems/hooks.md) — Compositor IPC event listeners, systemd user services/timers, and udev rules
-- [`references/subsystems/capture.md`](references/subsystems/capture.md) — Screenshots, screen recording, OCR text capture, and desktop sharing portals
+- [`references/subsystems/capture.md`](references/subsystems/capture.md) — Screenshots, screen recording, OCR text capture, LocalSend/Tailscale file transfer
+- [`references/subsystems/diagnostics-and-crash.md`](references/subsystems/diagnostics-and-crash.md) — Application crashes, coredumpctl, Debuginfod symbolization, and OOM analysis
 - [`references/subsystems/packages-and-system.md`](references/subsystems/packages-and-system.md) — `pacman`, AUR helpers (`yay`/`paru`), system updates, driver troubleshooting, and logs
 
 ---
@@ -71,6 +73,12 @@ Detailed guides for specific desktop environments and subsystems:
    * Hyprland: `hyprctl reload` and `hyprctl configerrors`
    * Niri: `niri validate`
    * Sway: `swaymsg reload`
+5. **Memory & Core Dump Privacy:**
+   * Core dumps contain memory snapshots with potential plain-text secrets (passwords, tokens).
+   * Always extract to ephemeral `mktemp` paths and delete immediately via `trap`.
+   * Never commit or upload core dumps to public issue trackers.
+6. **Untrusted Themes & Scripts:**
+   * Do not run arbitrary executable scripts or binaries packaged inside downloaded themes or dotfiles.
 
 ---
 
@@ -87,3 +95,4 @@ When handling user requests on Arch Linux:
    - Niri -> [`references/environments/niri.md`](references/environments/niri.md)
 3. **Package Installation:** Use `pacman -S` for official repos; `yay -S` / `paru -S` without `sudo` for AUR.
 4. **Service & Audio Management:** Use `systemctl --user` for user-space daemons (Waybar, PipeWire, SwayNC, Dunst, etc.).
+5. **Crash & Diagnostics:** Follow [`references/subsystems/diagnostics-and-crash.md`](references/subsystems/diagnostics-and-crash.md): check `coredumpctl info`, rule out OOM kills, symbolize via Debuginfod, and securely clean up core files.

@@ -159,3 +159,14 @@ fc-cache -fv
 ```bash
 fc-list : family | sort -u | grep -i "nerd"
 ```
+
+---
+
+## 7. Safe Theming Practices for AI Agents
+
+1. **System Themes are Read-Only:** Never modify themes in `/usr/share/themes/`, `/usr/share/icons/`, or `/usr/share/backgrounds/`. Package updates will overwrite them. Always copy to `~/.local/share/themes/` or `~/.config/`.
+2. **Overlay vs. Fork:**
+   * **Overlay (preferred):** Keep system defaults and place only modified config files in `~/.config/` or `~/.local/share/`.
+   * **Fork:** Clone an entire theme into `~/.local/share/themes/<name>-custom` when major structural edits are needed.
+3. **Guard Against Malicious Themes:** Themes downloaded from untrusted online repositories may contain executable scripts, custom terminal profiles that launch arbitrary commands, or malicious hooks. **Never automatically execute scripts bundled inside downloaded theme packages.**
+

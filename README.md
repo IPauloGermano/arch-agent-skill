@@ -27,7 +27,8 @@ While Omarchy is built with opinionated distribution wrappers (Lua configuration
 * **Display & Scaling:** Automated monitor detection, refresh rate configuration, and fractional scaling without blurry XWayland apps.
 * **Waybar & UI Widgets:** Ready-to-use JSONC and GTK CSS layouts for Waybar, Rofi-wayland, SwayNC, Hypridle, and Hyprlock.
 * **Modern Theming Pipeline:** Unified styling across GTK 3/4, Qt5/Qt6 (Kvantum/qt6ct), dynamic palette generators (`matugen`, `pywal`), and terminal emulators (Ghostty, Kitty, Alacritty, Foot).
-* **Screen Capture & OCR:** Wayland-native screenshots (`grim`/`slurp`/`grimblast`), GPU-accelerated screen recording (`wf-recorder`/`gpu-screen-recorder`), and instant OCR text extraction (`tesseract`).
+* **Screen Capture & Sharing:** Wayland-native screenshots (`grim`/`slurp`/`grimblast`), GPU-accelerated screen recording (`wf-recorder`/`gpu-screen-recorder`), instant OCR (`tesseract`), and cross-device sharing via LocalSend and Tailscale.
+* **Crash Diagnostics & Debugging:** Evidence-based crash diagnosis with `coredumpctl`, on-the-fly backtrace symbolization via official Arch Linux Debuginfod (`debuginfod.archlinux.org`), memory core privacy controls, and OOM triage.
 * **System Maintenance:** Best practices for `pacman`, AUR helpers (`yay`, `paru`), mirrorlist optimization (`reflector`), orphan package removal, and PipeWire audio health checks.
 
 ---
@@ -62,7 +63,8 @@ While Omarchy is built with opinionated distribution wrappers (Lua configuration
         ├── bar-and-widgets.md # Waybar, Rofi, SwayNC, Hyprlock, Hypridle
         ├── theming.md         # Wallpapers, GTK/Qt, Matugen, fonts
         ├── hooks.md           # Compositor IPC listeners, systemd timers
-        ├── capture.md         # Screenshots, recording, OCR & portals
+        ├── capture.md         # Screenshots, recording, OCR & sharing (LocalSend/Tailscale)
+        ├── diagnostics-and-crash.md # Coredumpctl, Debuginfod symbolization & OOM triage
         └── packages-and-system.md # Pacman, AUR, reflector & drivers
 ```
 
@@ -73,18 +75,18 @@ While Omarchy is built with opinionated distribution wrappers (Lua configuration
 ### 1. For Gemini / Antigravity CLI
 Clone or copy this folder into your agent skills directory:
 ```bash
-git clone https://github.com/YOUR_USERNAME/arch-linux-skill.git ~/.gemini/config/skills/arch-linux
+git clone https://github.com/IPauloGermano/arch-agent-skill.git ~/.gemini/config/skills/arch-linux
 ```
 
 ### 2. For Claude Desktop / Code / Open Agent Skills
 ```bash
 mkdir -p ~/.agents/skills
-git clone https://github.com/YOUR_USERNAME/arch-linux-skill.git ~/.agents/skills/arch-linux
+git clone https://github.com/IPauloGermano/arch-agent-skill.git ~/.agents/skills/arch-linux
 ```
 
 ### 3. Using the Skills CLI (`skills.sh`)
 ```bash
-npx skills add IPauloGermano/arch-linux-skill
+npx skills add IPauloGermano/arch-agent-skill
 ```
 
 ---
@@ -99,6 +101,7 @@ Once installed, your AI agent will automatically activate this skill when you as
 * *"How do I enable dark mode and change font size in GNOME using CLI?"*
 * *"Write a systemd user timer to rotate wallpapers every 30 minutes"*
 * *"Set up OCR text extraction from screen with a shortcut"*
+* *"Why did Waybar crash? Analyze the core dump with debuginfod"*
 * *"Clean up pacman cache and remove orphan packages safely"*
 
 ---
